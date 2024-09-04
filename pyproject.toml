@@ -1,12 +1,12 @@
 [tool.poetry]
 name = "goit-pycore-hw-08"
-version = "0.1.0"
+version = "0.1.1"
 description = ""
 authors = ["data-tamer2410 <vitaliy.dayneko2410@gmail.com>"]
 packages = [{'include'='project'}]
 
 [tool.poetry.dependencies]
-python = "3.12.5"
+python = "~3.12"
 
 
 [build-system]
