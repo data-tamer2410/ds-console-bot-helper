@@ -1,0 +1,14 @@
+[tool.poetry]
+name = "goit-pycore-hw-08"
+version = "0.1.0"
+description = ""
+authors = ["data-tamer2410 <vitaliy.dayneko2410@gmail.com>"]
+packages = [{'include'='project'}]
+
+[tool.poetry.dependencies]
+python = "3.12.5"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
