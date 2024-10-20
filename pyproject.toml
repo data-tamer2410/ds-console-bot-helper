@@ -1,9 +1,10 @@
 [tool.poetry]
-name = "goit-pycore-hw-08"
+name = "ds_console_bot_helper"
 version = "0.1.2"
-description = ""
+description = "Console bot helper (2.0) that recognizes commands entered from the keyboard, and responds according to the entered command."
 authors = ["data-tamer2410 <vitaliy.dayneko2410@gmail.com>"]
-packages = [{'include'='project'}]
+readme = 'README.md'
+packages = [{include='project'}]
 
 [tool.poetry.dependencies]
 python = "~3.12"
