@@ -14,9 +14,10 @@ To install the necessary dependencies using Poetry, run:
 
 ```bash
 poetry install
-Usage
+```
+## Usage
 To start the console bot, run:
-
+```
 poetry run python project/main.py
 ```
 
