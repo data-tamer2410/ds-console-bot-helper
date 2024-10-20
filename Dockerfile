@@ -2,7 +2,7 @@ FROM python:3.12-slim
 
 LABEL authors="data-tamer2410"
 
-WORKDIR /goit-ds-hw-01
+WORKDIR /ds-console-bot-helper
 
 COPY . .
 
