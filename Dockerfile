@@ -1,8 +1,8 @@
 FROM python:3.12-slim
 
-LABEL authors="data-tamer2310"
+LABEL authors="data-tamer2410"
 
-WORKDIR /goit-pycore-hw-08
+WORKDIR /goit-ds-hw-01
 
 COPY . .
 
