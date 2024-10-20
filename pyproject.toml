@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "ds_console_bot_helper"
+name = "ds-console-bot-helper"
 version = "0.1.2"
 description = "Console bot helper (2.0) that recognizes commands entered from the keyboard, and responds according to the entered command."
 authors = ["data-tamer2410 <vitaliy.dayneko2410@gmail.com>"]
