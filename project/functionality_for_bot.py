@@ -1,5 +1,4 @@
-"""Функціонал для консольного бота помічника(2.0), який розпізнає команди, що вводяться з клавіатури,
-                                    та відповідає відповідно до введеної команди."""
+"""Functionality for the console bot helper (2.0), which recognizes commands entered from the keyboard, and responds according to the entered command."""
 from collections import UserDict
 from datetime import datetime, timedelta
 
@@ -9,7 +8,7 @@ class ValidationError(Exception):
 
 
 class Field:
-    """Базовий клас для полів запису."""
+    """Base class for record fields."""
 
     def __init__(self, value: str | datetime):
         self.value = value
@@ -19,12 +18,12 @@ class Field:
 
 
 class Name(Field):
-    """Клас для зберігання імені контакту."""
+    """Class for storing contact names."""
     pass
 
 
 class Phone(Field):
-    """Клас для зберігання номера телефону. Має валідацію формату (10 цифр)."""
+    """Class for storing phone numbers. Validates that the format is 10 digits."""
 
     def __init__(self, value: str):
         if value.isdigit() and len(value) == 10:
@@ -34,7 +33,7 @@ class Phone(Field):
 
 
 class Birthday(Field):
-    """Клас для зберігання дати дня народження в форматі DD.MM.YY."""
+    """Class for storing birth dates in the format DD.MM.YY."""
 
     def __init__(self, value: str):
         try:
@@ -45,12 +44,7 @@ class Birthday(Field):
 
     @staticmethod
     def __validation(birthday: datetime) -> datetime:
-        """
-        Виконую валідацію вхідної дати.
-
-        :param birthday: Бажана дата.
-        :return: Вхідну дату якщо вона пройшла провірку.
-        """
+        """Validates the input date."""
         now = datetime.now()
         if birthday.date() <= now.date():
             return birthday
@@ -62,7 +56,7 @@ class Birthday(Field):
 
 
 class Record:
-    """Клас для зберігання інформації про контакт, включаючи ім'я, список телефонів та дату народження."""
+    """Class for storing contact information, including name, phone numbers, and birthday."""
 
     def __init__(self, name: str, phone: str = None):
         self.name = Name(name)
@@ -70,38 +64,21 @@ class Record:
         self.birthday = None
 
     def add_birthday(self, birthday: str):
-        """
-        Додавання дати народження.
-
-        :param birthday: Бажана дата народження.
-        """
+        """Adds a birthday."""
         self.birthday = Birthday(birthday)
 
     def add_phone(self, phone: str):
-        """
-        Додавання телефонів.
-
-        :param phone: Бажаний номер телефону.
-        """
+        """Adds a phone number."""
         if self.find_phone(phone) is None:
             self.phones.append(Phone(phone))
 
     def remove_phone(self, phone: str):
-        """
-        Видалення телефонів.
-
-        :param phone: Бажаний номер телефону.
-        """
+        """Removes a phone number."""
         i = [v.value for v in self.phones].index(Phone(phone).value)
         self.phones.pop(i)
 
     def edit_phone(self, old_phone: str, new_phone: str):
-        """
-        Редагування телефонів.
-
-        :param old_phone: Старий номер телефону.
-        :param new_phone: Новий номер телефону.
-        """
+        """Edits a phone number."""
         i = [v.value for v in self.phones].index(Phone(old_phone).value)
         if self.find_phone(new_phone) and old_phone != new_phone:
             self.remove_phone(old_phone)
@@ -109,12 +86,7 @@ class Record:
             self.phones[i] = Phone(new_phone)
 
     def find_phone(self, phone: str) -> Phone | None:
-        """
-        Пошук телефону.
-
-        :param phone: Бажаний номер телефону.
-        :return: Об'єкт номера телефону(Phone) за вказаним номером(phone).
-        """
+        """Finds a phone number."""
         res = [p for p in self.phones if p.value == Phone(phone).value]
         if not res:
             return None
@@ -126,14 +98,10 @@ class Record:
 
 
 class AddressBook(UserDict):
-    """Клас для зберігання та управління записами."""
+    """Class for storing and managing records."""
 
     def get_upcoming_birthdays(self) -> list[dict]:
-        """
-        Визначає контакти, у яких день народження припадає вперед на 7 днів включаючи поточний день.
-
-        :return: Список словників з датами привітання.
-        """
+        """Determines contacts with birthdays within the next 7 days."""
         now = datetime.now()
         res = []
         for rec in self.data.values():
@@ -154,28 +122,15 @@ class AddressBook(UserDict):
         return res
 
     def add_record(self, record: Record):
-        """
-        Додавання записів.
-
-        :param record: Бажаний запис.
-        """
+        """Adds a record."""
         self.data[record.name.value] = record
 
     def find(self, name: str) -> Record:
-        """
-        Пошук записів за іменем.
-
-        :param name: Бажане ім'я для пошуку запису.
-        :return: Об'єкт запису(Records) за вказаним ім'ям(name).
-        """
+        """Finds a record by name."""
         return self.data.get(name)
 
     def delete(self, name: str):
-        """
-        Видалення записів за іменем.
-
-        :param name: Бажане ім'я для видалення запису.
-        """
+        """Deletes a record by name. """
         self.data.pop(name)
 
     def __str__(self):
