@@ -18,10 +18,14 @@ Usage
 To start the console bot, run:
 
 poetry run python project/main.py
-Docker
+```
+
+## Docker
 You can also run the bot using Docker. Build the Docker image with:
-
+```
 docker build -t console-bot-helper .
+```
 Then run the container:
-
+```
 docker run -it console-bot-helper
+```
