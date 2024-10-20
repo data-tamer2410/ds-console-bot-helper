@@ -1,5 +1,5 @@
-"""Консольний бот помічник(2.0), який розпізнає команди, що вводяться з клавіатури,
-                                    та відповідає відповідно до введеної команди."""
+"""Console bot helper (2.0) that recognizes commands entered from the keyboard,
+                                    and responds according to the entered command."""
 
 from project.functionality_for_bot import AddressBook, Record, ValidationError
 import pickle
@@ -7,10 +7,10 @@ import pickle
 
 def save_data(book: AddressBook, filename: str = "addressbook.pkl"):
     """
-    Зберігає записну книгу(book) у файл(filename).
+    Saves the notebook(book) to the file(filename).
 
-    :param book: Записна книга для зберігання.
-    :param filename: Ім'я файлу для зберігання.
+    :param book: Record book to store.
+    :param filename: Name of the file to save.
     """
     with open(filename, "wb") as f:
         pickle.dump(book, f)
@@ -18,10 +18,10 @@ def save_data(book: AddressBook, filename: str = "addressbook.pkl"):
 
 def load_data(filename: str = "addressbook.pkl") -> AddressBook:
     """
-    Завантаження записної книги з файлу(filename).
+    Downloading a notebook from a file (filename).
 
-    :param filename: Ім'я файлу для завантаження.
-    :return: Збережена записна книга у разі успішного завантаження.
+    :param filename: The name of the file to download.
+    :return: Saved notebook on successful download.
     """
     try:
         with open(filename, "rb") as f:
@@ -31,7 +31,7 @@ def load_data(filename: str = "addressbook.pkl") -> AddressBook:
 
 
 def input_error(func):
-    """Декоратор для обробки винятків."""
+    """Decorator for handling exceptions."""
 
     def inner(*args, **kwargs):
         try:
@@ -52,10 +52,10 @@ def input_error(func):
 @input_error
 def parse_input(user_input: str) -> tuple[str, str] | str:
     """
-    Парсер команд ведених користувачем з консолі.
+    Parser of user-driven commands from the console.
 
     :param user_input:
-    :return: Кортеж з обробленим веденням користувача.
+    :return: A tuple with processed user input.
     """
     cmd, *args = user_input.split()
     cmd = cmd.strip().lower()
@@ -65,11 +65,11 @@ def parse_input(user_input: str) -> tuple[str, str] | str:
 @input_error
 def add_contact(args: list[str], book: AddressBook) -> str:
     """
-    Додає контакт до записної книги.
+    Adds a contact to the notebook.
 
-    :param args: Список з веденням користувача.
-    :param book: Бажана записна книга.
-    :return: Рядок логування для користувача.
+    :param args: List with user input.
+    :param book: Desired notebook.
+    :return: The login string for the user.
     """
 
     name, phone = args[:2] if len(args[:2]) == 2 else (args[0], None)
@@ -87,11 +87,11 @@ def add_contact(args: list[str], book: AddressBook) -> str:
 @input_error
 def change_contact(args: list[str], book: AddressBook) -> str:
     """
-    Змінює номер телефону.
+    Changes the phone number.
 
-    :param args: Список з веденням користувача.
-    :param book: Бажана записна книга.
-    :return: Рядок логування для користувача.
+    :param args: List with user input.
+    :param book: Desired notebook.
+    :return: The login string for the user.
     """
     name, old_phone, new_phone, *_ = args
     record = book.find(name)
@@ -102,11 +102,11 @@ def change_contact(args: list[str], book: AddressBook) -> str:
 @input_error
 def remove_phone(args: list[str], book: AddressBook) -> str:
     """
-    Видаляє номер телефону.
+    Deletes a phone number.
 
-    :param args: Список з веденням користувача.
-    :param book: Бажана записна книга.
-    :return: Рядок логування для користувача.
+    :param args: List with user input.
+    :param book: Desired notebook.
+    :return: The login string for the user.
     """
     name, phone, *_ = args
     record = book.find(name)
@@ -117,11 +117,11 @@ def remove_phone(args: list[str], book: AddressBook) -> str:
 @input_error
 def delete_contact(args: list[str], book: AddressBook) -> str:
     """
-    Видаляє контакт.
+    Deletes a contact.
 
-    :param args: Список з веденням користувача.
-    :param book: Бажана записна книга.
-    :return: Рядок логування для користувача.
+    :param args: List with user input.
+    :param book: Desired notebook.
+    :return: The login string for the user.
     """
     name, *_ = args
     book.delete(name)
@@ -131,11 +131,11 @@ def delete_contact(args: list[str], book: AddressBook) -> str:
 @input_error
 def show_phone(args: list[str], book: AddressBook) -> str:
     """
-    Повертає номера телефонів бажаного контакту.
+    Returns the phone numbers of the desired contact.
 
-    :param args: Список з веденням користувача.
-    :param book: Бажана записна книга.
-    :return: Рядок з номерами телефонів.
+    :param args: List with user input.
+    :param book: Desired notebook.
+    :return: A string with phone numbers.
     """
     name, *_ = args
     record = book.find(name)
@@ -145,10 +145,10 @@ def show_phone(args: list[str], book: AddressBook) -> str:
 @input_error
 def show_all_contacts(book: AddressBook) -> AddressBook:
     """
-    Повертає записну книгу для друку всіх записів.
+    Returns a notebook for printing all entries.
 
-    :param book: Бажана записна книга.
-    :return: Об'єкт записної книги типу AddressBook.
+    :param book: Desired notebook.
+    :return: An address book object of type AddressBook.
     """
     return book
 
@@ -156,11 +156,11 @@ def show_all_contacts(book: AddressBook) -> AddressBook:
 @input_error
 def add_birthday(args: list[str], book: AddressBook) -> str:
     """
-    Додає дату народження до контакту.
+    Adds a date of birth to a contact.
 
-    :param args: Список з веденням користувача.
-    :param book: Бажана записна книга.
-    :return: Рядок логування для користувача.
+    :param args: List with user input.
+    :param book: Desired notebook.
+    :return: The login string for the user.
     """
     name, birthday, *_ = args
     record = book.find(name)
@@ -174,11 +174,11 @@ def add_birthday(args: list[str], book: AddressBook) -> str:
 @input_error
 def show_birthday(args: list[str], book: AddressBook) -> str:
     """
-    Повертає дату дня народження бажаного контакту.
+    Returns the birthday of the desired contact.
 
-    :param args: Список з веденням користувача.
-    :param book: Бажана записна книга.
-    :return: Рядок з датою народження.
+    :param args: List with user input.
+    :param book: Desired notebook.
+    :return: A string with the date of birth.
     """
     name, *_ = args
     record = book.find(name)
@@ -188,10 +188,10 @@ def show_birthday(args: list[str], book: AddressBook) -> str:
 @input_error
 def birthdays(book: AddressBook) -> str:
     """
-    Визначає контакти, у яких день народження припадає вперед на 7 днів включаючи поточний день.
+    Identifies contacts whose birthday is 7 days ahead of the current day.
 
-    :param book: Бажана записна книга.
-    :return: Рядок з іменами та датами привітання.
+    :param book: Desired notebook.
+    :return: A string with the greeting names and dates.
     """
     res = ''
     count_rec = 1
@@ -202,7 +202,7 @@ def birthdays(book: AddressBook) -> str:
 
 
 def main():
-    """Головна функція."""
+    """Main function."""
     book = load_data()
     print('Welcome to the assistant bot!')
     while True:
